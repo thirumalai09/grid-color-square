@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+
+import './App.css'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [numBoxes, setNumBoxes] = useState(0);
+    const handleInputChange = (event) => {
+        setNumBoxes(event.target.value);
+    };
+    // const renderBoxes = () => {
+    //     const boxes = [];
+    //     for (let i = 0; i < numBoxes; i++) {
+    //         boxes.push(<div key={i} className="box"></div>);
+    //     }
+    //     return boxes;
+    // };
+    const renderGrid = () => {
+        const grid = [];
+        for (let i = 0; i < (numBoxes); i++) {
+            grid.push(<div key={i} className="row">{renderRow(i)}</div>);
+        }
+        return grid;
+    };
+    const renderRow = (rowNum) => {
+        const row = [];
+        for (let j = 0; j < (numBoxes); j++) {
+            row.push(<div key={rowNum * Math.sqrt(numBoxes) + j} className="box"></div>);
+        }
+        return row;
+    };
+    return (
+        <div>
+            <input type="number" onChange={handleInputChange} />
+            {/* <div className='boxes'>{renderBoxes()}</div> */}
+            <div className="grid">{renderGrid()}</div>
+
+        </div>
+    );
 }
 
-export default App;
+export default App
